@@ -1,11 +1,14 @@
 //ADMINISTRA LA NAVEGACIÓN DE LAS PÁGINAS
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_manga_app_bloc/bloc/manga_bloc.dart';
 import 'package:flutter_manga_app_bloc/navigation/navigation.dart';
 import 'package:flutter_manga_app_bloc/navigation/routes.dart';
 import 'package:flutter_manga_app_bloc/pages/details_page.dart';
 import 'package:flutter_manga_app_bloc/pages/home_page.dart';
 import 'package:flutter_manga_app_bloc/pages/viewer_page.dart';
+import 'package:flutter_manga_app_bloc/repositories/api_helper.dart';
+import 'package:flutter_manga_app_bloc/repositories/remote/manga_town_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../main.dart';
 
@@ -13,7 +16,10 @@ class AppModule extends MainModule{
 
   @override
   List<Bind> get binds => [
-    Bind((_) => Navigation())
+    Bind((_) => Navigation()),
+    Bind((_) => ApiBaseHelper()),
+    Bind((_) => MangaBloc()),
+    Bind((_) => MangaTownRepository()),
   ];
 
   @override

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 
 enum Routes{HOME, DETAILS, VIEWER}
 
