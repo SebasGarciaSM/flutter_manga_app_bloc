@@ -63,7 +63,7 @@ class LatestManga extends StatelessWidget{
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
             onTap: () {
-              //navigation.goToDetails(mangaList[index]);
+              navigation.goToDetails(mangaList[index]);
             },
             child: Card(
               child: Padding(

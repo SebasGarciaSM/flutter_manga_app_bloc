@@ -25,7 +25,7 @@ class AppModule extends MainModule{
   @override
   List<ModularRouter> get routers => [
     ModularRouter(Routes.HOME.path, child: (_, __) => HomePage()),
-    ModularRouter(Routes.DETAILS.path, child: (_, __) => DetailsPage()),
+    ModularRouter(Routes.DETAILS.path, child: (_, args) => DetailsPage(manga: args.data,)),
     ModularRouter(Routes.VIEWER.path, child: (_, __) => ViewerPage()),
   ];
 
