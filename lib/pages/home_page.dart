@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
         title: Text('Manga App'),
       ),
       body: RefreshIndicator(
-        onRefresh: mangaBloc.fetchMangaLatest(1),
+        onRefresh: () => mangaBloc.fetchMangaLatest(1),
         child: StreamBuilder<ApiResponse<List<Manga>>>(
           stream: mangaBloc.mangaListStreams,
           builder: (context, snapshot){
@@ -54,7 +54,10 @@ class LatestManga extends StatelessWidget{
 
     return GridView.builder(
       itemCount: mangaList.length,
-      gridDelegate: null,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        childAspectRatio: 1.5/1.8
+      ),
       itemBuilder: (context, index){
         return Padding(
           padding: const EdgeInsets.all(8.0),

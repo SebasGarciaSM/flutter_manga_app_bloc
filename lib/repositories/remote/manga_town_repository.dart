@@ -9,7 +9,7 @@ class MangaTownRepository {
 
   Future<List<Manga>> fetchLatestManga(int page)async{
     
-    final response = await _apiBaseHelper.get('latest/$page.htm');
+    final response = await _apiBaseHelper.getHtml('latest/$page.htm');
     return MangaLatestResponse.fromHtml(page, response).results;
 
   }
