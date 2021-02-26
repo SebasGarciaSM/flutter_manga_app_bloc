@@ -193,7 +193,7 @@ class Details extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
             onTap: () {
-              //navigation.goToViewer(mangaDetails.chapters[index]);
+              navigation.goToViewer(mangaDetails.chapters[index]);
             },
             child: Container(
               // margin: const EdgeInsets.all(15.0),
