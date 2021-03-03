@@ -5,6 +5,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class Navigation{
 
+  void goToHome(){
+    Modular.to.pushNamed(Routes.DETAILS.path);
+  }
+
   void goToDetails(Manga manga){
     Modular.to.pushNamed(Routes.DETAILS.path, arguments: manga);
   }

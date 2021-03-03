@@ -7,9 +7,13 @@ class MangaDetails {
 
   String title;
   String coverUrl;
+  String description;
+  String author;
+  List<String> artist;
+  String status;
   List<Chapter> chapters;
 
-  MangaDetails({this.title, this.coverUrl, this.chapters});
+  MangaDetails({this.title, this.coverUrl, this.chapters, this.description});
 
   MangaDetails.fromHtml(Manga manga, String html){
     this.title = manga.title;
@@ -19,6 +23,19 @@ class MangaDetails {
 
     final ulChapterList = doc.getElementsByClassName('chapter_list').first;
     chapters = List<Chapter>();
+
+    final spanDescription = doc.getElementById('show').innerHtml.replaceAll('<a class="more" href="javascript:;" onclick="cut_hide()">HIDE</a>', '').replaceAll('&nbsp;', '');
+    description = spanDescription.trim();
+    
+    final aAuthor = doc.getElementsByClassName('color_0077').first;
+    author = aAuthor.innerHtml.trim();
+
+    final classColor = doc.getElementsByClassName('color_0077');
+    final artistList = classColor.getRange(1, classColor.length-1);
+    artist = List<String>();
+    artistList.forEach((element) {artist.add(element.innerHtml);});
+    artist.forEach((element) {element.substring(1, element.length-1);});
+
     ulChapterList.children.forEach((element) {chapters.add(Chapter.fromHtml(manga.title, element.innerHtml));
     });
   }

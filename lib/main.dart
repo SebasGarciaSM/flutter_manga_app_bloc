@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: Routes.HOME.path,
       navigatorKey: Modular.navigatorKey,
       onGenerateRoute: Modular.generateRoute,
