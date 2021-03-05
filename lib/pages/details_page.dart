@@ -47,53 +47,29 @@ class _DetailsPageState extends State<DetailsPage> {
       body: ListView(
         children: [
             RefreshIndicator(
-          
                     onRefresh: () => _bloc.fetchMangaDetails(widget.manga),
-          
                     child: StreamBuilder<ApiResponse<MangaDetails>>(
-          
                       stream: _bloc.mangaDetailsStreams,
-          
                       builder: (context, snapshot) {
-          
                         if (snapshot.hasData) {
-          
                           switch (snapshot.data.status) {
-          
                             case Status.LOADING:
-          
                               return LoadingWidget(loadingMessage: snapshot.data.message);
-          
                               break;
-          
                             case Status.COMPLETED:
-          
                               return Details(mangaDetails: snapshot.data.data);
-          
                               break;
-          
                             case Status.ERROR:
-          
                               return Error(
-          
                                 errorMessage: snapshot.data.message,
-          
                                 onRetryPressed: () => _bloc.fetchMangaDetails(widget.manga),
-          
                               );
-          
                               break;
-          
                           }
-          
                         }
-          
                         return Container();
-          
                       },
-          
                     ),
-          
                   ),
         ],
       ),
@@ -149,14 +125,10 @@ class Details extends StatelessWidget {
               Column(
                 children: [
                   Text('Author: ${mangaDetails.author}'),
-                  Row(
-                    children: [
-                      for(String m in mangaDetails.artist){
-                        Text('Artist: ${mangaDetails.artist[mangaDetails.artist.indexOf(m)]}')
-                      }
-                    ],
-                  ),
+                  Text('Artist: ${mangaDetails.artist[0]}'),
+                  getArtists(mangaDetails.artist),
                   Text('Status: Ongoing'),
+                  getGenres(mangaDetails.genres)
                 ],
               )
             ],
@@ -288,4 +260,19 @@ class Details extends StatelessWidget {
       },
     );
   }
+
+  Widget getArtists(List<String> strings)
+  {
+    return new Row(
+      children: strings.map((item) => new Text(item.trim())).toList()
+    );
+  }
+
+  Widget getGenres(List<String> strings)
+  {
+    return new Row(
+      children: strings.map((item) => new Text('${item.trim()}, ')).toList()
+    );
+  }
+  
 }

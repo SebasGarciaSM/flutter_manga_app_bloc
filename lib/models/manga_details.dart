@@ -11,6 +11,7 @@ class MangaDetails {
   String author;
   List<String> artist;
   String status;
+  List<String> genres;
   List<Chapter> chapters;
 
   MangaDetails({this.title, this.coverUrl, this.chapters, this.description});
@@ -35,6 +36,12 @@ class MangaDetails {
     artist = List<String>();
     artistList.forEach((element) {artist.add(element.innerHtml);});
     artist.forEach((element) {element.substring(1, element.length-1);});
+
+    final divGenres = doc.getElementsByClassName('detail_info clearfix').first;
+    final liGenres = divGenres.getElementsByTagName('li')[4];
+    final listGenres = liGenres.getElementsByTagName('a');
+    genres = List<String>();
+    listGenres.forEach((element) {genres.add(element.innerHtml);});
 
     ulChapterList.children.forEach((element) {chapters.add(Chapter.fromHtml(manga.title, element.innerHtml));
     });
