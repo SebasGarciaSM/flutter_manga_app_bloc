@@ -81,12 +81,6 @@ class Details extends StatelessWidget {
   const Details({Key key, this.mangaDetails}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-
-    /*List<String> artistsList = List<String>();
-    mangaDetails.artist.forEach((element) {
-      artistsList.add(element.substring(1, element.length-1));
-    });*/
-
     return Column(
       children: [
         Row(
@@ -109,7 +103,7 @@ class Details extends StatelessWidget {
         SizedBox(height: 10.0),
         Container(
           padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
-          child: Row(
+          child: Column(
             children: [
               Row(
                 children: [
@@ -122,15 +116,42 @@ class Details extends StatelessWidget {
                   ),
                 ],
               ),
-              Column(
+              Row(
                 children: [
-                  Text('Author: ${mangaDetails.author}'),
-                  Text('Artist: ${mangaDetails.artist[0]}'),
-                  getArtists(mangaDetails.artist),
-                  Text('Status: Ongoing'),
+                  Text('Author: ${mangaDetails.author}', 
+                    style: new TextStyle(
+                      color: Color.fromRGBO(129, 128, 127, 1.0),
+                      fontSize: 12.0,
+                      fontFamily: 'Arial',
+                    )
+                  ),
                   getGenres(mangaDetails.genres)
                 ],
-              )
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Artist: ', 
+                    style: new TextStyle(
+                      color: Color.fromRGBO(129, 128, 127, 1.0),
+                      fontSize: 12.0,
+                      fontFamily: 'Arial',
+                    )
+                  ),
+                  getArtists(mangaDetails.artist),
+                ],
+              ),
+              Row(
+                children: [
+                  Text('Status: Ongoing', 
+                    style: new TextStyle(
+                      color: Color.fromRGBO(129, 128, 127, 1.0),
+                      fontSize: 12.0,
+                      fontFamily: 'Arial',
+                    )
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -151,14 +172,6 @@ class Details extends StatelessWidget {
             ],
           ),
         )
-        /*Column(
-          children: [
-            title(),
-            coverImage(),
-            actions(),
-            Expanded(child: chapterList()),
-          ],
-        )*/
       ],
     );
   }
@@ -264,7 +277,12 @@ class Details extends StatelessWidget {
   Widget getArtists(List<String> strings)
   {
     return new Row(
-      children: strings.map((item) => new Text(item.trim())).toList()
+      children: strings.map(
+        (item) => new Text(
+          item.trim(), style: new TextStyle(color: Color.fromRGBO(129, 128, 127, 1.0),fontSize: 12.0, fontFamily: 'Arial',
+         )
+        )
+      ).toList()
     );
   }
 
