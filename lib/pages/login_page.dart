@@ -17,13 +17,13 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   StreamSubscription<User> loginStateSubscription;
-  
+
   @override
   void initState() {
     final navigation = Modular.get<Navigation>();
     var authBloc = Provider.of<AuthBloc>(context, listen: false);
-    loginStateSubscription = authBloc.currentUser.listen((firebaseUser) { 
-      if(firebaseUser!=null){
+    loginStateSubscription = authBloc.currentUser.listen((firebaseUser) {
+      if (firebaseUser != null) {
         navigation.goToHome();
       }
     });
@@ -40,19 +40,19 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final authBloc = Provider.of<AuthBloc>(context);
     return Provider(
-      create: (context)=> AuthBloc(),
+      create: (context) => AuthBloc(),
       child: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SignInButton(
-                Buttons.Google,
-                onPressed: ()=> authBloc.loginGoogle(),
+          body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SignInButton(
+              Buttons.Google,
+              onPressed: () => authBloc.loginGoogle(),
             ),
-            ],
-          ),
-        )),
+          ],
+        ),
+      )),
     );
   }
 }

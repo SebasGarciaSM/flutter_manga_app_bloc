@@ -8,13 +8,13 @@ import 'package:flutter_manga_app_bloc/repositories/api_status.dart';
 import 'package:flutter_manga_app_bloc/widgets/error_widget.dart';
 import 'package:flutter_manga_app_bloc/widgets/loading_widget.dart';
 
-
 class ViewerPage extends StatefulWidget {
   final Chapter chapter;
   ViewerPage({Key key, this.chapter}) : super(key: key);
   @override
   _ViewerPageState createState() => _ViewerPageState();
 }
+
 class _ViewerPageState extends State<ViewerPage> {
   ViewerBloc _bloc;
   List<MangaPage> _pages;
@@ -26,6 +26,7 @@ class _ViewerPageState extends State<ViewerPage> {
     _pages = List<MangaPage>();
     _bloc = ViewerBloc();
   }
+
   @override
   Widget build(BuildContext context) {
     _bloc.fetchPage(widget.chapter.link);
@@ -78,6 +79,7 @@ class _ViewerPageState extends State<ViewerPage> {
       ),
     );
   }
+
   void nextPage(BuildContext context) {
     final nextIndex = currentPageIndex + 1;
     if (nextIndex == _pages.length) {
@@ -91,6 +93,7 @@ class _ViewerPageState extends State<ViewerPage> {
     }
   }
 }
+
 class Viewer extends StatelessWidget {
   final PageResponse pageResponse;
   const Viewer({Key key, this.pageResponse}) : super(key: key);

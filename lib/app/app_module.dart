@@ -21,7 +21,6 @@ class AppModule extends MainModule{
     Bind((_) => AuthBloc()),
     Bind((_) => Navigation()),
     Bind((_) => ApiBaseHelper()),
-    Bind((_) => MangaBloc()),
     Bind((_) => MangaTownRepository()),
   ];
 

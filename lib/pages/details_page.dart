@@ -16,6 +16,7 @@ class DetailsPage extends StatefulWidget {
   @override
   _DetailsPageState createState() => _DetailsPageState();
 }
+
 class _DetailsPageState extends State<DetailsPage> {
   MangaDetailsBloc _bloc;
   @override
@@ -23,59 +24,60 @@ class _DetailsPageState extends State<DetailsPage> {
     super.initState();
     _bloc = MangaDetailsBloc();
   }
+
   @override
   Widget build(BuildContext context) {
     _bloc.fetchMangaDetails(widget.manga);
     return Scaffold(
       backgroundColor: Color.fromRGBO(244, 240, 240, 1.0),
       appBar: AppBar(
-        iconTheme: IconThemeData(
-            color: Color.fromRGBO(69, 39, 160, 1.0)
-          ),
+        iconTheme: IconThemeData(color: Color.fromRGBO(69, 39, 160, 1.0)),
         backgroundColor: Color.fromRGBO(244, 240, 240, 1.0),
         centerTitle: true,
         elevation: 0.0,
         title: Text(
           'Manga Reader',
           style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.w400,
-            color: Color.fromRGBO(75, 75, 75, 1.0)
-          ),
+              fontSize: 25,
+              fontWeight: FontWeight.w400,
+              color: Color.fromRGBO(75, 75, 75, 1.0)),
         ),
       ),
       body: ListView(
         children: [
-            RefreshIndicator(
-                    onRefresh: () => _bloc.fetchMangaDetails(widget.manga),
-                    child: StreamBuilder<ApiResponse<MangaDetails>>(
-                      stream: _bloc.mangaDetailsStreams,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          switch (snapshot.data.status) {
-                            case Status.LOADING:
-                              return LoadingWidget(loadingMessage: snapshot.data.message);
-                              break;
-                            case Status.COMPLETED:
-                              return Details(mangaDetails: snapshot.data.data);
-                              break;
-                            case Status.ERROR:
-                              return Error(
-                                errorMessage: snapshot.data.message,
-                                onRetryPressed: () => _bloc.fetchMangaDetails(widget.manga),
-                              );
-                              break;
-                          }
-                        }
-                        return Container();
-                      },
-                    ),
-                  ),
+          RefreshIndicator(
+            onRefresh: () => _bloc.fetchMangaDetails(widget.manga),
+            child: StreamBuilder<ApiResponse<MangaDetails>>(
+              stream: _bloc.mangaDetailsStreams,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  switch (snapshot.data.status) {
+                    case Status.LOADING:
+                      return LoadingWidget(
+                          loadingMessage: snapshot.data.message);
+                      break;
+                    case Status.COMPLETED:
+                      return Details(mangaDetails: snapshot.data.data);
+                      break;
+                    case Status.ERROR:
+                      return Error(
+                        errorMessage: snapshot.data.message,
+                        onRetryPressed: () =>
+                            _bloc.fetchMangaDetails(widget.manga),
+                      );
+                      break;
+                  }
+                }
+                return Container();
+              },
+            ),
+          ),
         ],
       ),
     );
   }
 }
+
 class Details extends StatelessWidget {
   final MangaDetails mangaDetails;
   const Details({Key key, this.mangaDetails}) : super(key: key);
@@ -109,47 +111,43 @@ class Details extends StatelessWidget {
                 children: [
                   Text('Details',
                       style: new TextStyle(
-                      color: Color.fromRGBO(69, 39, 160, 1.0),
-                      fontSize: 12.0,
-                      fontFamily: 'Arial',
-                    )
-                  ),
+                        color: Color.fromRGBO(69, 39, 160, 1.0),
+                        fontSize: 12.0,
+                        fontFamily: 'Arial',
+                      )),
                 ],
               ),
               Row(
                 children: [
-                  Text('Author: ${mangaDetails.author}', 
-                    style: new TextStyle(
-                      color: Color.fromRGBO(129, 128, 127, 1.0),
-                      fontSize: 12.0,
-                      fontFamily: 'Arial',
-                    )
-                  ),
+                  Text('Author: ${mangaDetails.author}',
+                      style: new TextStyle(
+                        color: Color.fromRGBO(129, 128, 127, 1.0),
+                        fontSize: 12.0,
+                        fontFamily: 'Arial',
+                      )),
                   getGenres(mangaDetails.genres)
                 ],
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Artist: ', 
-                    style: new TextStyle(
-                      color: Color.fromRGBO(129, 128, 127, 1.0),
-                      fontSize: 12.0,
-                      fontFamily: 'Arial',
-                    )
-                  ),
+                  Text('Artist: ',
+                      style: new TextStyle(
+                        color: Color.fromRGBO(129, 128, 127, 1.0),
+                        fontSize: 12.0,
+                        fontFamily: 'Arial',
+                      )),
                   getArtists(mangaDetails.artist),
                 ],
               ),
               Row(
                 children: [
-                  Text('Status: Ongoing', 
-                    style: new TextStyle(
-                      color: Color.fromRGBO(129, 128, 127, 1.0),
-                      fontSize: 12.0,
-                      fontFamily: 'Arial',
-                    )
-                  ),
+                  Text('Status: Ongoing',
+                      style: new TextStyle(
+                        color: Color.fromRGBO(129, 128, 127, 1.0),
+                        fontSize: 12.0,
+                        fontFamily: 'Arial',
+                      )),
                 ],
               ),
             ],
@@ -167,9 +165,7 @@ class Details extends StatelessWidget {
         ),*/
         Container(
           child: Column(
-            children: [
-              chapterList()
-            ],
+            children: [chapterList()],
           ),
         )
       ],
@@ -180,33 +176,35 @@ class Details extends StatelessWidget {
     return Container(
         padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
         child: Text(mangaDetails.description,
-          style: new TextStyle(
-            color: Color.fromRGBO(129, 128, 127, 1.0),
-            fontSize: 12.0,
-            fontFamily: 'Arial',
-          )
-        )
-      );
+            style: new TextStyle(
+              color: Color.fromRGBO(129, 128, 127, 1.0),
+              fontSize: 12.0,
+              fontFamily: 'Arial',
+            )));
   }
 
   Container mangaImage() {
     return Container(
-            padding: EdgeInsets.only(top: 10.0),
-            alignment: Alignment.topLeft,
-            child: Image(
-              image:  NetworkImage(mangaDetails.coverUrl),
-              height: 210.0,
-              width: 170.0,
-            ),
+      padding: EdgeInsets.only(top: 10.0),
+      alignment: Alignment.topLeft,
+      child: Image(
+        image: NetworkImage(mangaDetails.coverUrl),
+        height: 210.0,
+        width: 170.0,
+      ),
     );
   }
 
   Row mangaTitle() {
     return Row(
       children: [
-        SizedBox(width: 10.0,),
+        SizedBox(
+          width: 10.0,
+        ),
         Expanded(
-          child: Text(mangaDetails.title, softWrap: true,
+          child: Text(
+            mangaDetails.title,
+            softWrap: true,
             style: new TextStyle(
               color: Color.fromRGBO(69, 39, 160, 1.0),
               fontSize: 20.0,
@@ -240,7 +238,6 @@ class Details extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: mangaDetails.chapters.length,
-      
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.all(5.0),
@@ -274,23 +271,20 @@ class Details extends StatelessWidget {
     );
   }
 
-  Widget getArtists(List<String> strings)
-  {
+  Widget getArtists(List<String> strings) {
     return new Row(
-      children: strings.map(
-        (item) => new Text(
-          item.trim(), style: new TextStyle(color: Color.fromRGBO(129, 128, 127, 1.0),fontSize: 12.0, fontFamily: 'Arial',
-         )
-        )
-      ).toList()
-    );
+        children: strings
+            .map((item) => new Text(item.trim(),
+                style: new TextStyle(
+                  color: Color.fromRGBO(129, 128, 127, 1.0),
+                  fontSize: 12.0,
+                  fontFamily: 'Arial',
+                )))
+            .toList());
   }
 
-  Widget getGenres(List<String> strings)
-  {
+  Widget getGenres(List<String> strings) {
     return new Row(
-      children: strings.map((item) => new Text('${item.trim()}, ')).toList()
-    );
+        children: strings.map((item) => new Text('${item.trim()}, ')).toList());
   }
-  
 }

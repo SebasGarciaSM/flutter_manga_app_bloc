@@ -5,26 +5,26 @@ import 'package:flutter_manga_app_bloc/repositories/api_response.dart';
 import 'package:flutter_manga_app_bloc/repositories/remote/manga_town_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class ViewerBloc extends Disposable{
-
+class ViewerBloc extends Disposable {
   MangaTownRepository _mangaTownRepository;
   StreamController _viewerController;
 
-  StreamSink<ApiResponse<PageResponse>> get viewerSink => _viewerController.sink;
-  Stream<ApiResponse<PageResponse>> get viewerStream => _viewerController.stream;
+  StreamSink<ApiResponse<PageResponse>> get viewerSink =>
+      _viewerController.sink;
+  Stream<ApiResponse<PageResponse>> get viewerStream =>
+      _viewerController.stream;
 
-  ViewerBloc(){
+  ViewerBloc() {
     _viewerController = StreamController<ApiResponse<PageResponse>>();
     _mangaTownRepository = Modular.get<MangaTownRepository>();
   }
 
-  fetchPage(String link) async{
+  fetchPage(String link) async {
     viewerSink.add(ApiResponse.loading('Fetching page'));
-    try{
+    try {
       PageResponse pageResponse = await _mangaTownRepository.fetchPage(link);
       viewerSink.add(ApiResponse.completed(pageResponse));
-    }
-    catch(e){
+    } catch (e) {
       viewerSink.add(ApiResponse.error(e.toString()));
     }
   }
@@ -33,5 +33,4 @@ class ViewerBloc extends Disposable{
   void dispose() {
     _viewerController?.close();
   }
-  
 }
