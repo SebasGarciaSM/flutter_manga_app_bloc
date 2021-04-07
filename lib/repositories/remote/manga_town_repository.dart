@@ -1,6 +1,7 @@
 import 'package:flutter_manga_app_bloc/models/manga.dart';
 import 'package:flutter_manga_app_bloc/models/manga_details.dart';
 import 'package:flutter_manga_app_bloc/models/manga_latest_response.dart';
+import 'package:flutter_manga_app_bloc/models/manga_search.dart';
 import 'package:flutter_manga_app_bloc/models/page_response.dart';
 import 'package:flutter_manga_app_bloc/repositories/api_helper.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -11,6 +12,11 @@ class MangaTownRepository {
   Future<List<Manga>> fetchLatestManga(int page) async {
     final response = await _apiBaseHelper.getHtml('latest/$page.htm');
     return MangaLatestResponse.fromHtml(page, response).results;
+  }
+
+  Future<List<Manga>> fetchSearchManga(String query) async {
+    final response = await _apiBaseHelper.getHtml('search?name=$query');
+    return MangaSearch.fromHtml(query, response).results;
   }
 
   Future<MangaDetails> fetchMangaDetails(Manga manga) async {

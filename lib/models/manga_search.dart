@@ -2,14 +2,14 @@ import 'package:flutter_manga_app_bloc/models/manga.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
 
-class MangaLatestResponse{
+class MangaSearch{
 
-  int page;
+  String page;
   List<Manga> results;
 
-  MangaLatestResponse({this.page, this.results});
+  MangaSearch({this.page, this.results});
 
-  MangaLatestResponse.fromHtml(int page, String html){
+  MangaSearch.fromHtml(String page, String html){
     this.page = page;
     results = List<Manga>();
 

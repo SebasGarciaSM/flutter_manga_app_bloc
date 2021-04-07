@@ -3,6 +3,8 @@ import 'package:html/parser.dart' as parser;
 
 class Manga{
 
+  String uniqueId;
+
   String title;
   String link;
   String coverUrl;

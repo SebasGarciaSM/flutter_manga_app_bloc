@@ -9,6 +9,7 @@ import 'package:flutter_manga_app_bloc/navigation/navigation.dart';
 import 'package:flutter_manga_app_bloc/pages/login_page.dart';
 import 'package:flutter_manga_app_bloc/repositories/api_response.dart';
 import 'package:flutter_manga_app_bloc/repositories/api_status.dart';
+import 'package:flutter_manga_app_bloc/search/search_delegate.dart';
 import 'package:flutter_manga_app_bloc/widgets/error_widget.dart';
 import 'package:flutter_manga_app_bloc/widgets/loading_widget.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -49,11 +50,22 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('Manga App'),
         actions: [
           MaterialButton(
-              child: Icon(Icons.exit_to_app),
-              onPressed: () => authBloc.logout())
+              child: Icon(Icons.exit_to_app, color: Colors.white),
+              onPressed: () => authBloc.logout()),
+          IconButton(
+            icon: Icon( Icons.search ),
+            onPressed: () {
+              showSearch(
+                context: context, 
+                delegate: DataSearch(),
+                // query: 'Hola'
+                );
+            },
+          )
         ],
       ),
       body: RefreshIndicator(
