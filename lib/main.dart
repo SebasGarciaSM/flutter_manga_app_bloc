@@ -1,7 +1,6 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_manga_app_bloc/pages/login_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:provider/provider.dart';
 import 'app/app_module.dart';
@@ -21,6 +20,7 @@ class MyApp extends StatelessWidget {
     return Provider(
       create: (context) => AuthBloc(),
       child: MaterialApp(
+        title: 'Manga App',
           debugShowCheckedModeBanner: false,
           initialRoute: Routes.LOGIN.path,
           navigatorKey: Modular.navigatorKey,

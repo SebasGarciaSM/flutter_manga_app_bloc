@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:flutter_manga_app_bloc/repositories/remote/auth_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthBloc {
   final authService = AuthRepository();
   final googleSignIn = GoogleSignIn(scopes: ['email']);
-  //final facebookLogin = FacebookLogin();
+  final facebookLogin = FacebookLogin();
 
   Stream<User> get currentUser => authService.currentUser;
 
@@ -26,7 +27,7 @@ class AuthBloc {
     }
   }
 
-  /*loginFacebook() async {
+  loginFacebook() async {
     print('Starting Facebook Login');
 
     final res = await facebookLogin.logIn(
@@ -60,7 +61,7 @@ class AuthBloc {
       print('There was an error');
       break;
     }
-  }*/
+  }
 
   logout() {
     authService.logout();
